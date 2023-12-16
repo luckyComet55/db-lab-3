@@ -1,6 +1,6 @@
 from profiler import measure_n_times_with_stats
 from duckdb import DuckDBPyConnection
-import dcdb
+import duck.dcdb as dcdb
 
 @measure_n_times_with_stats(1)
 def q1_1(c: DuckDBPyConnection):

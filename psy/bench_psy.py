@@ -1,4 +1,4 @@
-import psycopg as psc
+import psy.psycopg as psc
 from profiler import measure_n_times_with_stats
 
 @measure_n_times_with_stats(1)

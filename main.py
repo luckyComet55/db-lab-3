@@ -2,8 +2,8 @@ from profiler import measure_n_times_with_stats
 from stats import print_stats
 import os
 from dotenv import load_dotenv
-import dcdb
-import bench_duck
+import duck.dcdb as dcdb
+import duck.bench_duck as bench_duck
 
 def get_postgres_data():
     return {

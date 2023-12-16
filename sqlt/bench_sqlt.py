@@ -1,5 +1,5 @@
 from sqlite3 import Cursor
-import sqlite as sqlt
+import sqlt.sqlite as sqlt
 from profiler import measure_n_times_with_stats
 
 @measure_n_times_with_stats(1)
