@@ -3,6 +3,8 @@ from stats import print_stats
 import os
 from dotenv import load_dotenv
 import psycopg as psc
+import sqlite
+from bench_sqlt import sqlt_1q_1, sqlt_2q_1, sqlt_3q_1, sqlt_4q_1
 
 def get_postgres_data():
     return {
@@ -40,12 +42,12 @@ def ps2_4q_1(cursor):
 
 if __name__ == "__main__":
     load_env()
-    db_params = get_postgres_data()
-    [conn, cursor] = psc.setup(db_params)
+    path = os.environ.get('SQLT_DATA_SOURCE')
+    [conn, cursor] = sqlite.setup(path)
     stats = []
-    stats.append(ps2_1q_1(cursor))
-    stats.append(ps2_2q_1(cursor))
-    stats.append(ps2_3q_1(cursor))
-    stats.append(ps2_4q_1(cursor))
+    stats.append(sqlt_1q_1(cursor))
+    stats.append(sqlt_2q_1(cursor))
+    stats.append(sqlt_3q_1(cursor))
+    stats.append(sqlt_4q_1(cursor))
     print_stats(stats)
-    psc.cleanup(conn, cursor)
+    sqlite.cleanup(conn, cursor)
