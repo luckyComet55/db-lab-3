@@ -2,7 +2,7 @@ from profiler import measure_n_times_with_stats
 from stats import print_stats
 import os
 from dotenv import load_dotenv
-from psycopg import setup, cleanup, ps2_one_query
+import psycopg as psc
 
 def get_postgres_data():
     return {
@@ -20,20 +20,32 @@ def load_env():
     else:
         raise Exception('No .env file')
 
-@measure_n_times_with_stats(100)
-def ps2_1q_100(cursor):
-    ps2_one_query(cursor)
+times_to_execute = 10
 
-@measure_n_times_with_stats(1000)
-def ps2_1q_1000(cursor):
-    ps2_one_query(cursor)
+@measure_n_times_with_stats(times_to_execute)
+def ps2_1q_1(cursor):
+    psc.ps2_one_query(cursor)
+
+@measure_n_times_with_stats(times_to_execute)
+def ps2_2q_1(cursor):
+    psc.ps2_two_query(cursor)
+
+@measure_n_times_with_stats(times_to_execute)
+def ps2_3q_1(cursor):
+    psc.ps2_three_query(cursor)
+
+@measure_n_times_with_stats(times_to_execute)
+def ps2_4q_1(cursor):
+    psc.ps2_four_query(cursor)
 
 if __name__ == "__main__":
     load_env()
     db_params = get_postgres_data()
-    [conn, cursor] = setup(db_params)
+    [conn, cursor] = psc.setup(db_params)
     stats = []
-    stats.append(ps2_1q_100(cursor))
-    stats.append(ps2_1q_1000(cursor))
+    stats.append(ps2_1q_1(cursor))
+    stats.append(ps2_2q_1(cursor))
+    stats.append(ps2_3q_1(cursor))
+    stats.append(ps2_4q_1(cursor))
     print_stats(stats)
-    cleanup(conn, cursor)
+    psc.cleanup(conn, cursor)
