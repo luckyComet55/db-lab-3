@@ -19,10 +19,11 @@ def get_stats(data: List[float], name: str):
     return stats
 
 def print_stats(stats: List):
+    print(f'list len: {len(stats)}\n')
     print(
         '''name     min      max     mean\n'''
     )
-    for i in range(len(stats)):
+    for stat in stats:
         print(
-            f'''{stats[i][name_k]}      {stats[i][min_k]}       {stats[i][max_k]}       {stats[i][mean_k]}\n'''
+            f'''{stat[name_k]}      {stat[min_k]}       {stat[max_k]}       {stat[mean_k]}\n'''
         )
