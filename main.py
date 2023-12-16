@@ -24,22 +24,6 @@ def load_env():
 
 times_to_execute = 10
 
-@measure_n_times_with_stats(times_to_execute)
-def ps2_1q_1(cursor):
-    psc.ps2_one_query(cursor)
-
-@measure_n_times_with_stats(times_to_execute)
-def ps2_2q_1(cursor):
-    psc.ps2_two_query(cursor)
-
-@measure_n_times_with_stats(times_to_execute)
-def ps2_3q_1(cursor):
-    psc.ps2_three_query(cursor)
-
-@measure_n_times_with_stats(times_to_execute)
-def ps2_4q_1(cursor):
-    psc.ps2_four_query(cursor)
-
 if __name__ == "__main__":
     load_env()
     path = os.environ.get('SQLT_DATA_SOURCE')
