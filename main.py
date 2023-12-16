@@ -2,9 +2,8 @@ from profiler import measure_n_times_with_stats
 from stats import print_stats
 import os
 from dotenv import load_dotenv
-import alch.alch as alch
-import alch.bench_alch as bench_alch
-import psy.psycopg as psy
+import pan.pan as pan
+import pan.bench_pan as bench_pan
 
 def get_postgres_data():
     return {
@@ -27,11 +26,11 @@ times_to_execute = 10
 if __name__ == "__main__":
     load_env()
     db_params = get_postgres_data()
-    conn = alch.setup(db_params)
+    conn = pan.setup(db_params)
     stats = []
-    stats.append(bench_alch.q1_1(conn))
-    stats.append(bench_alch.q2_1(conn))
-    stats.append(bench_alch.q3_1(conn))
-    stats.append(bench_alch.q4_1(conn))
+    stats.append(bench_pan.q1_1(conn))
+    stats.append(bench_pan.q2_1(conn))
+    stats.append(bench_pan.q3_1(conn))
+    stats.append(bench_pan.q4_1(conn))
     print_stats(stats)
-    alch.cleanup(conn)
+    pan.cleanup(conn)
