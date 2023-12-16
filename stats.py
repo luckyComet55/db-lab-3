@@ -1,29 +1,28 @@
 from typing import List
+import pandas as pd
 
-name_k = 'name'
+driver_k = 'driver'
+type_k = 'query_type'
 min_k = 'min'
 max_k = 'max'
 mean_k = 'mean'
 
-def get_stats(data: List[float], name: str):
+def get_stats(data: List[float], query_type: str, driver: str):
     data.sort()
     min_ = data[0]
     max_ = data[len(data) - 1]
     mean = data[len(data) // 2]
     stats = {
-        name_k: name,
+        driver_k: driver,
+        type_k: query_type,
         min_k: min_,
         max_k: max_,
         mean_k: mean
     }
     return stats
 
-def print_stats(stats: List):
-    print(f'list len: {len(stats)}\n')
-    print(
-        '''name     min      max     mean\n'''
-    )
-    for stat in stats:
-        print(
-            f'''{stat[name_k]}      {stat[min_k]}       {stat[max_k]}       {stat[mean_k]}\n'''
-        )
+def init_dataframe():
+    return pd.DataFrame(columns=['driver', 'query_type', 'min', 'max', 'mean'])
+
+def save_2_file(df: pd.DataFrame, path: str):
+    df.to_csv(index=False, path_or_buf=path)

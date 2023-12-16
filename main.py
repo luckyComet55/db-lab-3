@@ -1,5 +1,4 @@
-from profiler import measure_n_times_with_stats
-from stats import print_stats
+from stats import init_dataframe, save_2_file
 import os
 from dotenv import load_dotenv
 import pan.pan as pan
@@ -25,12 +24,15 @@ times_to_execute = 10
 
 if __name__ == "__main__":
     load_env()
+    df = init_dataframe()
+    csv_path = os.environ.get("CSV_PATH")
     db_params = get_postgres_data()
     conn = pan.setup(db_params)
     stats = []
     stats.append(bench_pan.q1_1(conn))
-    stats.append(bench_pan.q2_1(conn))
-    stats.append(bench_pan.q3_1(conn))
-    stats.append(bench_pan.q4_1(conn))
-    print_stats(stats)
+    for s in stats:
+        print(s)
+        df.loc[len(df)] = s
+        print(df)
+    save_2_file(df, csv_path)
     pan.cleanup(conn)

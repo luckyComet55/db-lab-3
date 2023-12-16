@@ -11,7 +11,8 @@ def measure_n_times_with_stats(n: int):
                 end = time.time()
                 res = (end-start)*1000
                 data.append(res)
-            stats = get_stats(data, func.__name__)
+            [driver, query_type] = (str(func.__name__)).split('_')
+            stats = get_stats(data, query_type, driver)
             return stats
         return wrapper
     return inner_func
