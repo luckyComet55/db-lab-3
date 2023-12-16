@@ -29,7 +29,7 @@ if __name__ == "__main__":
     db_params = get_postgres_data()
     conn = pan.setup(db_params)
     stats = []
-    stats.append(bench_pan.q1_1(conn))
+    stats.append(bench_pan.pandas_1(conn))
     for s in stats:
         print(s)
         df.loc[len(df)] = s
