@@ -2,8 +2,9 @@ from profiler import measure_n_times_with_stats
 from stats import print_stats
 import os
 from dotenv import load_dotenv
-import duck.dcdb as dcdb
-import duck.bench_duck as bench_duck
+import alch.alch as alch
+import alch.bench_alch as bench_alch
+import psy.psycopg as psy
 
 def get_postgres_data():
     return {
@@ -25,12 +26,12 @@ times_to_execute = 10
 
 if __name__ == "__main__":
     load_env()
-    path = os.environ.get('SQLT_DATA_SOURCE')
-    conn = dcdb.setup(path)
+    db_params = get_postgres_data()
+    conn = alch.setup(db_params)
     stats = []
-    stats.append(bench_duck.q2_1(conn))
-    stats.append(bench_duck.q2_1(conn))
-    stats.append(bench_duck.q3_1(conn))
-    stats.append(bench_duck.q4_1(conn))
+    stats.append(bench_alch.q1_1(conn))
+    stats.append(bench_alch.q2_1(conn))
+    stats.append(bench_alch.q3_1(conn))
+    stats.append(bench_alch.q4_1(conn))
     print_stats(stats)
-    dcdb.cleanup(conn)
+    alch.cleanup(conn)
